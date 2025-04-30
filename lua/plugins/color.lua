@@ -9,19 +9,23 @@ return {
         strings = false,
         keywords = false,
         functions = false,
-        variables = false,
+        variables = true,
       },
-      overrides = {
-        -- Customize Neo-tree backgrounds with different colors
-        NeoTreeNormal = { bg = "#4a3b3b" }, -- Background color for Neo-tree
-        NeoTreeNormalNC = { bg = "#403c3c" }, -- Background color for Neo-tree when not focused
+     overrides = {
+  -- Neo-tree backgrounds adapted to Gruvbox
+  NeoTreeNormal = { bg = "#32302f" },     -- Gruvbox dark background (medium)
+  NeoTreeNormalNC = { bg = "#282828" },   -- Gruvbox darker background (non-focused)
+  
+  -- Notify background (a bit more subtle)
+  NotifyBackground = { bg = "#1d2021" }, 
 
-        -- Highlight NotifyBackground group if needed
-        NotifyBackground = { bg = "#2e2e2e" }, -- Background color for notifications
+  -- CursorLine (softer highlight, but still visible)
+  CursorLine = { bg = "#3c3836" },
 
-        -- Customize CursorLine color
-        CursorLine = { bg = "#5a4d4d" }, -- Change this to your desired color
-      },
+
+  -- Main editor background (slightly darker than NeoTreeNormal)
+  Normal = { bg = "#29292c" },
+}
     })
     vim.cmd("colorscheme gruvbox")
   end,
