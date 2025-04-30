@@ -9,6 +9,7 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
+    dependencies = { "williamboman/mason.nvim" },
     opts = {
       auto_install = true,
     },
@@ -16,49 +17,42 @@ return {
   {
     "neovim/nvim-lspconfig",
     lazy = false,
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim",
+      "hrsh7th/cmp-nvim-lsp"  -- Make sure this is installed for capabilities
+    },
     config = function()
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      vim.lsp.set_log_level("debug")  -- Temporarily enable for debugging
 
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require("lspconfig")
-      lspconfig.tsserver.setup({
-        capabilities = capabilities  --js
-      })
-      lspconfig.html.setup({
-        capabilities = capabilities --html
-      })
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities --lua
-      })
-      lspconfig.cssls.setup({
-        capabilities = capabilities --css
-      })
-      lspconfig.angularls.setup({
-        capabilities = capabilities --angular
-      })
-      lspconfig.biome.setup({
-        capabilities = capabilities --ts 
-      })
-      lspconfig.rust_analyzer.setup({
-        capabilities = capabilities --rust
-      })
-      lspconfig.basedpyright.setup({
-        capabilities = capabilities --python
-      })
-      lspconfig.sqlls.setup({
-        capabilities = capabilities --sql
-      })
+
+      local on_attach = function(client, bufnr)
+      end
+
+      local servers = {
+        "html", "lua_ls", "cssls", "tsserver", "angularls", 
+        "rust_analyzer", "sqlls", "jdtls"
+      }
+
+      for _, server in ipairs(servers) do
+        lspconfig[server].setup({
+          capabilities = capabilities,
+          on_attach = on_attach
+        })
+      end
+
       lspconfig.jdtls.setup({
         cmd = {'jdtls'},
-        capabilities = capabilities
+        capabilities = capabilities,
+        on_attach = on_attach
       })
+
       lspconfig.kotlin_language_server.setup({
         cmd = { "C:/Program Files/kotlin-language-server-1.3.12/server/build/install/server/bin/kotlin-language-server" },
-        capabilities = capabilities --kotlin
+        capabilities = capabilities,
+        on_attach = on_attach
       })
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
-      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
     end,
   },
 }
