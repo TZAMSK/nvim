@@ -1,20 +1,21 @@
 return {
   "romgrk/barbar.nvim",
-  version = '^1.0.0', -- optional: only update when a new 1.x version is released
+  version = '^1.0.0', 
   dependencies = {
-    'nvim-tree/nvim-web-devicons',   -- OPTIONAL: for file icons
-  },
-  init = function() 
-    vim.g.barbar_auto_setup = false 
-  end,
-  opts = {
-    -- Put your options here, anything missing will use the default:
-    -- animation = true,
-    -- insert_at_start = true,
-    -- etc.
+    'lewis6991/gitsigns.nvim', 
+    'nvim-tree/nvim-web-devicons', 
   },
   config = function()
-    local function close_first_buffer_if_needed()
+    require('lazy').setup {
+      {
+        'romgrk/barbar.nvim',
+        init = function() vim.g.barbar_auto_setup = false end,
+        opts = {
+        },
+      },
+    }
+
+local function close_first_buffer_if_needed()
       local buffers = vim.fn.len(vim.fn.getbufinfo({buflisted = 1}))
       if buffers > 5 then
         vim.cmd("BufferGoto 1")
@@ -22,7 +23,6 @@ return {
       end
     end
 
-    -- Automatically check when switching buffers
     vim.api.nvim_create_autocmd("BufEnter", {
       callback = close_first_buffer_if_needed,
     })
