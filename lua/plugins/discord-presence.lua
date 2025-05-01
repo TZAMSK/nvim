@@ -2,7 +2,7 @@ return {
   "IogaMaster/neocord",
   config = function()
     require("neocord").setup({
-    logo                = "auto",                     -- "auto" or url
+    logo                = "https://femboy.beauty/qBgdLU",                     -- "auto" or url
     logo_tooltip        = nil,                        -- nil or string
     main_image          = "language",                 -- "language" or "logo"
     log_level           = nil,                        -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")

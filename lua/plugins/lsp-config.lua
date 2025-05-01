@@ -31,7 +31,7 @@ return {
       end
 
       local servers = {
-        "html", "lua_ls", "cssls", "tsserver", "angularls", 
+        "html", "lua_ls", "cssls", "ts_ls", "angularls", 
         "rust_analyzer", "sqlls", "jdtls"
       }
 
