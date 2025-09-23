@@ -48,11 +48,11 @@ return {
         on_attach = on_attach
       })
 
-      lspconfig.kotlin_language_server.setup({
-        cmd = { "C:/Program Files/kotlin-language-server-1.3.12/server/build/install/server/bin/kotlin-language-server" },
-        capabilities = capabilities,
-        on_attach = on_attach
-      })
+      --lspconfig.kotlin_language_server.setup({
+      --  cmd = { "C:/Program Files/kotlin-language-server-1.3.12/server/build/install/server/bin/kotlin-language-server" },
+      --  capabilities = capabilities,
+      --  on_attach = on_attach
+      --})
     end,
   },
 }
