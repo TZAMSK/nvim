@@ -3,7 +3,7 @@ return {
   config = function()
     require("lualine").setup({
       options = {
-        theme = "mfd-paper", 
+        theme = "mfd-flir", 
       }
     })
   end

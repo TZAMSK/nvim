@@ -17,5 +17,18 @@ return {
       shell = vim.o.shell,
       auto_scroll = true,
     })
+
+    -- Color the terminal background slightly per direction (optional)
+    vim.api.nvim_create_autocmd("TermOpen", {
+      pattern = "term://*toggleterm*",
+      callback = function()
+        -- These map ANSI 256 colors used inside the terminal
+        -- Error red  = color index 1, Warning yellow = color index 3
+        vim.g.terminal_color_1  = "#ff4444"  -- red   (ANSI error)
+        vim.g.terminal_color_3  = "#ffaa00"  -- yellow (ANSI warning)
+        vim.g.terminal_color_9  = "#ff6666"  -- bright red
+        vim.g.terminal_color_11 = "#ffd080"  -- bright yellow
+      end,
+    })
   end,
 }
