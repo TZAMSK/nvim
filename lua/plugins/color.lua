@@ -9,41 +9,41 @@ return {
 
     vim.opt.guicursor = {
       "n:block-CursorNormal",
-      "v:block-CursorVisual",
       "i:block-CursorInsert",
-      "r-cr:block-CursorReplace",
-      "c:block-CursorCommand",
     }
 
     local themes = {
-      "mfd-paper",
       "mfd-flir",
+      "mfd-paper",
     }
+
+    local function apply_colors()
+      -- Diagnostic underlines
+      vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#ff4444", bold = true })
+      vim.api.nvim_set_hl(0, "DiagnosticWarn",  { fg = "#ffaa00", bold = true })
+      vim.api.nvim_set_hl(0, "DiagnosticHint",  { fg = "#aaaaaa" })
+
+      vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = true, sp = "#ff4444" })
+      vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn",  { underline = true, sp = "#ffaa00" })
+      vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint",  { underline = true, sp = "#aaaaaa" })
+
+      vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#ff4444", bold = true })
+      vim.api.nvim_set_hl(0, "DiagnosticSignWarn",  { fg = "#ffaa00", bold = true })
+      vim.api.nvim_set_hl(0, "DiagnosticSignHint",  { fg = "#aaaaaa" })
+
+      -- Cursor colors per mode
+      vim.api.nvim_set_hl(0, "CursorNormal",  { bg = "#dedede" })  -- white  (normal)
+      vim.api.nvim_set_hl(0, "CursorInsert",  { bg = "#000000" })  -- green  (insert)
+    end
 
     local current = 1
     vim.cmd("colorscheme " .. themes[current])
     require("mfd").enable_cursor_sync()
+    apply_colors()  -- apply on startup
 
-    -- Re-apply diagnostic colors after every colorscheme change
     vim.api.nvim_create_autocmd("ColorScheme", {
       callback = function()
-        -- Diagnostic virtual text colors
-        vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#ff4444", bold = true })
-        vim.api.nvim_set_hl(0, "DiagnosticWarn",  { fg = "#ffaa00", bold = true })
-        vim.api.nvim_set_hl(0, "DiagnosticInfo",  { fg = "#4499ff" })
-        vim.api.nvim_set_hl(0, "DiagnosticHint",  { fg = "#aaaaaa" })
-
-        -- Underline/undercurl colors
-        vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = true, sp = "#ff4444" })
-        vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn",  { underline = true, sp = "#ffaa00" })
-        vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo",  { underline = true, sp = "#4499ff" })
-        vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint",  { underline = true, sp = "#aaaaaa" })
-
-        -- Gutter sign column colors
-        vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#ff4444", bold = true })
-        vim.api.nvim_set_hl(0, "DiagnosticSignWarn",  { fg = "#ffaa00", bold = true })
-        vim.api.nvim_set_hl(0, "DiagnosticSignInfo",  { fg = "#4499ff" })
-        vim.api.nvim_set_hl(0, "DiagnosticSignHint",  { fg = "#aaaaaa" })
+        apply_colors()  -- re-apply on theme switch
       end,
     })
 
