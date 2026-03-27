@@ -16,8 +16,8 @@ return {
     }
 
     local themes = {
-      "mfd-flir",
       "mfd-paper",
+      "mfd-flir",
     }
 
     local current = 1
