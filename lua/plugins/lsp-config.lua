@@ -16,11 +16,13 @@ return {
 
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "mason-org/mason-lspconfig.nvim" },
+    dependencies = { "mason-org/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
     config = function()
       local lspconfig = require("lspconfig")
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       lspconfig.lua_ls.setup({
+        capabilities = capabilities,
         settings = {
           Lua = {
             workspace = { checkThirdParty = false },
@@ -41,8 +43,20 @@ return {
         },
       })
 
-      lspconfig.rust_analyzer.setup({})
-      lspconfig.clangd.setup({})
+      lspconfig.rust_analyzer.setup({
+        capabilities = capabilities,
+      })
+
+      lspconfig.clangd.setup({
+        capabilities = capabilities,
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--clang-tidy",
+          "--completion-style=detailed",
+          "--header-insertion=iwyu",
+        },
+      })
     end,
   },
 }
