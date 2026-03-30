@@ -4,7 +4,6 @@ return {
   lazy = false,
   priority = 900,
   config = function()
-
     vim.diagnostic.config({
       virtual_text = false,
       signs = false,
@@ -14,12 +13,16 @@ return {
     })
 
     local function apply_colors()
-      vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = true, sp = "#ff4444" })
-      vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn",  { underline = true, sp = "#ffaa00" })
-      vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint",  { underline = true, sp = "#aaaaaa" })
+      vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = true, sp = "#8a7a7a" })
+      vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn",  { underline = true, sp = "#8a8a7a" })
+      vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo",  { underline = true, sp = "#7a828a" })
+      vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint",  { underline = true, sp = "#6a6a6a" })
     end
 
     apply_colors()
 
+    vim.api.nvim_create_autocmd("ColorScheme", {
+      callback = apply_colors,
+    })
   end,
 }

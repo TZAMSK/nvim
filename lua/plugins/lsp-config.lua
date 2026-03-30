@@ -10,18 +10,27 @@ return {
     "mason-org/mason-lspconfig.nvim",
     dependencies = { "mason-org/mason.nvim" },
     opts = {
-      ensure_installed = { "lua_ls", "rust_analyzer", "clangd" },
+      ensure_installed = { 
+          "lua_ls", 
+          "rust_analyzer", 
+          "clangd", 
+          "jdtls", 
+          "wgsl_analyzer", 
+      },
+      automatic_enable = false,
     },
   },
 
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "mason-org/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
+    dependencies = {
+      "mason-org/mason-lspconfig.nvim",
+      "hrsh7th/cmp-nvim-lsp",
+    },
     config = function()
-      local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      lspconfig.lua_ls.setup({
+      vim.lsp.config("lua_ls", {
         capabilities = capabilities,
         settings = {
           Lua = {
@@ -43,20 +52,24 @@ return {
         },
       })
 
-      lspconfig.rust_analyzer.setup({
+      vim.lsp.config("rust_analyzer", {
         capabilities = capabilities,
       })
 
-      lspconfig.clangd.setup({
+      vim.lsp.config("clangd", {
         capabilities = capabilities,
         cmd = {
           "clangd",
           "--background-index",
           "--clang-tidy",
           "--completion-style=detailed",
-          "--header-insertion=iwyu",
+          "--header-insertion=never",
         },
       })
+
+      vim.lsp.enable("lua_ls")
+      vim.lsp.enable("rust_analyzer")
+      vim.lsp.enable("clangd")
     end,
   },
 }
