@@ -22,7 +22,7 @@ return {
       { "<leader>l", "<cmd>CMakeSelectLaunchTarget<cr>", desc = "Select launch target" },
 
       -- Space+t = build and run selected launch target
-      {
+      --[[{
         "<leader>t",
         function()
           local Terminal = require("toggleterm.terminal").Terminal
@@ -54,6 +54,7 @@ return {
         end,
         desc = "Build and run launch target",
       },
+            ]]
 
       -- Space+r = run selected launch target only
       {
