@@ -1,51 +1,73 @@
 return {
-  "kungfusheep/mfd.nvim",
-  lazy = false,
-  priority = 1000,
-  config = function()
-    require("mfd").setup({
-      bright_comments = true,
-    })
+  {
+    "ellisonleao/gruvbox.nvim",
+    config = function()
+      require("gruvbox").setup({
+        transparent_mode = false,
+        contrast = "hard",
+        italic = {
+          comments = true,
+          strings = false,
+          keywords = false,
+          functions = false,
+          variables = true,
+        },
+        overrides = {
+          NeoTreeNormal = { bg = "#32302f" },
+          NeoTreeNormalNC = { bg = "#282828" },
+          NotifyBackground = { bg = "#1d2021" },
+          CursorLine = { bg = "#3c3836" },
+          Normal = { bg = "#29292c" },
+        },
+      })
+    end,
+  },
 
-    vim.opt.guicursor = {
-      "n:block-CursorNormal",
-      "i:block-CursorInsert",
-    }
+  {
+    "kungfusheep/mfd.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("mfd").setup({
+        bright_comments = true,
+      })
 
-    local themes = { "mfd-mono", "mfd-flir-bh" }
+      vim.opt.guicursor = {
+        "n:block-CursorNormal",
+        "v:block-CursorVisual",
+        "i:block-CursorInsert",
+        "r-cr:block-CursorReplace",
+        "c:block-CursorCommand",
+      }
 
-    local function apply_colors()
-      vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#8a7a7a" })
-      vim.api.nvim_set_hl(0, "DiagnosticWarn",  { fg = "#8a8a7a" })
-      vim.api.nvim_set_hl(0, "DiagnosticInfo",  { fg = "#7a828a" })
-      vim.api.nvim_set_hl(0, "DiagnosticHint",  { fg = "#6a6a6a" })
+      local themes = {
+        "gruvbox",
+        "mfd-paper",
+        "quiet",
+      }
 
-      vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", { underline = true, sp = "#8a7a7a" })
-      vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn",  { underline = true, sp = "#8a8a7a" })
+      local current = 1
 
-      vim.api.nvim_set_hl(0, "CursorNormal", { bg = "#ffc0e0" })
-      vim.api.nvim_set_hl(0, "CursorInsert", { bg = "#ffffff" })
-    end
+      local function apply_theme(theme)
+        vim.cmd("colorscheme " .. theme)
 
-    local current = 1
+        if theme:match("^mfd") then
+          require("mfd").enable_cursor_sync()
+        end
 
-    local function apply_theme()
-      local theme = themes[current]
-      vim.cmd("colorscheme " .. theme)
-      require("mfd").enable_cursor_sync()
-      apply_colors()
-      vim.notify("colorscheme: " .. theme)
-    end
+        require("lualine").setup({
+          options = { theme = theme },
+        })
 
-    apply_theme()
+        vim.notify("colorscheme: " .. theme)
+      end
 
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      callback = apply_colors,
-    })
+      apply_theme(themes[current])
 
-    vim.keymap.set("n", "<leader>tt", function()
-      current = (current % #themes) + 1
-      apply_theme()
-    end, { desc = "cycle mfd theme" })
-  end,
+      vim.keymap.set("n", "<leader>tt", function()
+        current = (current % #themes) + 1
+        apply_theme(themes[current])
+      end, { desc = "cycle colorscheme" })
+    end,
+  },
 }
