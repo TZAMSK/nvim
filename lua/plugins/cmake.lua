@@ -48,18 +48,12 @@ return {
             if not target:match("%.exe$") then
               target = target .. ".exe"
             end
-          else
+          elseif not target:match("^/") then
             -- ensure executable is runnable on Linux
-            target = "./" .. target:gsub("^./", "")
+            target = "./" .. (target:gsub("^./", ""))
           end
 
-          local cmd
-          if is_windows then
-            -- PowerShell-safe execution (no bash dependency)
-            cmd = string.format('"%s" %s', target, args)
-          else
-            cmd = string.format("'%s' %s", target, args)
-          end
+          local cmd = string.format('"%s" %s', target, args)
 
           local term = Terminal:new({
             cmd = cmd,
