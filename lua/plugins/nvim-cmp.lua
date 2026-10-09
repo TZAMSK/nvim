@@ -27,10 +27,6 @@ return {
         ["<C-d>"] = cmp.mapping.scroll_docs(4),     -- Scroll down
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm
       },
-      window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered("rounded"),
-      },
       formatting = {
         fields = { "abbr", "kind", "menu" },
         format = function(entry, item)
@@ -44,6 +40,16 @@ return {
           })[entry.source.name]
           return item
         end,
+      },
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered({
+          max_width = 80,
+          max_height = 20,
+        }),
+      },
+      view = {
+        docs = { auto_open = true },
       },
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
