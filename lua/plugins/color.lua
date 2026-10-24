@@ -1,73 +1,43 @@
 return {
   {
-    "ellisonleao/gruvbox.nvim",
-    config = function()
-      require("gruvbox").setup({
-        transparent_mode = false,
-        contrast = "hard",
-        italic = {
-          comments = true,
-          strings = false,
-          keywords = false,
-          functions = false,
-          variables = true,
-        },
-        overrides = {
-          NeoTreeNormal = { bg = "#32302f" },
-          NeoTreeNormalNC = { bg = "#282828" },
-          NotifyBackground = { bg = "#1d2021" },
-          CursorLine = { bg = "#3c3836" },
-          Normal = { bg = "#29292c" },
-        },
-      })
-    end,
-  },
-
-  {
-    "kungfusheep/mfd.nvim",
+    "nvim-lualine/lualine.nvim",
     lazy = false,
     priority = 1000,
-    config = function()
-      require("mfd").setup({
-        bright_comments = true,
-      })
-
-      vim.opt.guicursor = {
-        "n:block-CursorNormal",
-        "v:block-CursorVisual",
-        "i:block-CursorInsert",
-        "r-cr:block-CursorReplace",
-        "c:block-CursorCommand",
-      }
-
+    opts = function()
       local themes = {
-        "gruvbox",
-        "mfd-paper",
-        "quiet",
+        { name = "mono-dark",  lualine = "auto" },
+        { name = "mono-light", lualine = "auto" },
       }
 
       local current = 1
 
       local function apply_theme(theme)
-        vim.cmd("colorscheme " .. theme)
+        vim.cmd("colorscheme " .. theme.name)
 
-        if theme:match("^mfd") then
-          require("mfd").enable_cursor_sync()
+        local ok = pcall(function()
+          require("lualine").setup({
+            options = { theme = theme.lualine },
+          })
+        end)
+        if not ok then
+          pcall(function()
+            require("lualine").setup({ options = { theme = "auto" } })
+          end)
         end
 
-        require("lualine").setup({
-          options = { theme = theme },
-        })
+        vim.notify("colorscheme: " .. theme.name)
+      end
 
-        vim.notify("colorscheme: " .. theme)
+      _G.MonoCycle = function()
+        current = (current % #themes) + 1
+        apply_theme(themes[current])
       end
 
       apply_theme(themes[current])
 
-      vim.keymap.set("n", "<leader>tt", function()
-        current = (current % #themes) + 1
-        apply_theme(themes[current])
-      end, { desc = "cycle colorscheme" })
+      vim.keymap.set("n", "<leader>tt", _G.MonoCycle, { desc = "cycle colorscheme" })
+
+      return {}
     end,
   },
 }
