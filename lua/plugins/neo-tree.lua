@@ -29,7 +29,7 @@ return {
     vim.api.nvim_set_hl(0, "NeoTreeDiagnosticInfo",  { fg = "#7a828a" })
     vim.api.nvim_set_hl(0, "NeoTreeDiagnosticHint",  { fg = "#6a6a6a" })
 
-    vim.keymap.set("n", "<leader>e", ":Neotree filesystem reveal left<CR>", {})
+    vim.keymap.set("n", "<C-z>", ":Neotree filesystem reveal left<CR>", {})
     vim.keymap.set("n", "<leader>E", ":Neotree buffers reveal float<CR>", {})
   end,
 }

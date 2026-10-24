@@ -7,7 +7,7 @@ local content = [=[
   <C-p>            Telescope: find files
   <leader>/        Telescope: live grep
   <leader><leader> Telescope: recent files
-  <leader>e        Neo-tree: open sidebar, reveal file
+  <C-z>        Neo-tree: open sidebar, reveal file
   <leader>E        Neo-tree: buffer list (float)
   <leader>-        Oil: file manager float
   <leader>o        Outline: toggle / focus symbols
@@ -257,7 +257,7 @@ local content = [=[
 ## NOTES
   No custom key overrides a native normal-mode key, and no <leader> key is
   the prefix of another, so there is no pause after any leader key.
-  Free native keys kept intact: <C-o> <C-x> <C-z> <C-c> and -
+  Free native keys kept intact: <C-o> <C-x> <C-c> and -
 ]=]
 
 local function open_hotkeys()
