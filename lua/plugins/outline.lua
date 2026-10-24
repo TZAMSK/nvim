@@ -18,7 +18,7 @@ return {
       },
     })
 
-    vim.keymap.set("n", "<C-c>", function()
+    vim.keymap.set("n", "<leader>o", function()
       if require("outline").is_open() then
         require("outline").focus_outline()
       else
