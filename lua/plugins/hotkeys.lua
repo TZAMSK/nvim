@@ -25,7 +25,7 @@ local content = [=[
   <leader>hp       Previous mark
 
 ### Terminal
-  <A-t>            Toggle floating terminal
+  <C-x>            Toggle floating terminal
 
 ### Theme
   <leader>tt       Cycle colorscheme (gruvbox / mfd-paper / quiet)
@@ -181,7 +181,6 @@ local content = [=[
   J  gJ            Join lines (with / without space)
   >>  <<           Indent / dedent line     ==  Auto indent line
   >  <  =  (visual) Indent / dedent / auto indent selection
-  <C-a> <C-x>      Increment / decrement number
   gcc  gc{motion}  Toggle comment (0.10+)   gc (visual) comment selection
   g?{motion}       ROT13
 
@@ -257,7 +256,7 @@ local content = [=[
 ## NOTES
   No custom key overrides a native normal-mode key, and no <leader> key is
   the prefix of another, so there is no pause after any leader key.
-  Free native keys kept intact: <C-o> <C-x> <C-c> and -
+  Free native keys kept intact: <C-o> <C-c> and -
 ]=]
 
 local function open_hotkeys()

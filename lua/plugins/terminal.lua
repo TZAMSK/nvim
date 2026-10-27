@@ -3,7 +3,7 @@ return {
   version = "*",
   config = function()
     require("toggleterm").setup({
-      open_mapping = [[<A-t>]],
+      open_mapping = [[<C-x>]],
       direction = "float",
       shade_terminals = true,
     })
