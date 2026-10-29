@@ -260,46 +260,46 @@ local content = [=[
 ]=]
 
 local function open_hotkeys()
-  local lines = vim.split(content, "\n", { plain = true })
+	local lines = vim.split(content, "\n", { plain = true })
 
-  local buf = vim.api.nvim_create_buf(false, true)
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
-  vim.bo[buf].modifiable = false
-  vim.bo[buf].bufhidden = "wipe"
-  vim.bo[buf].filetype = "markdown"
+	local buf = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+	vim.bo[buf].modifiable = false
+	vim.bo[buf].bufhidden = "wipe"
+	vim.bo[buf].filetype = "markdown"
 
-  local width = math.floor(vim.o.columns * 0.85)
-  local height = math.floor(vim.o.lines * 0.85)
+	local width = math.floor(vim.o.columns * 0.85)
+	local height = math.floor(vim.o.lines * 0.85)
 
-  local win = vim.api.nvim_open_win(buf, true, {
-    relative = "editor",
-    width = width,
-    height = height,
-    row = math.floor((vim.o.lines - height) / 2),
-    col = math.floor((vim.o.columns - width) / 2),
-    style = "minimal",
-    border = "rounded",
-    title = " Hotkeys ",
-    title_pos = "center",
-  })
-  vim.wo[win].wrap = false
-  vim.wo[win].cursorline = true
+	local win = vim.api.nvim_open_win(buf, true, {
+		relative = "editor",
+		width = width,
+		height = height,
+		row = math.floor((vim.o.lines - height) / 2),
+		col = math.floor((vim.o.columns - width) / 2),
+		style = "minimal",
+		border = "rounded",
+		title = " Hotkeys ",
+		title_pos = "center",
+	})
+	vim.wo[win].wrap = false
+	vim.wo[win].cursorline = true
 
-  for _, key in ipairs({ "q", "<Esc>" }) do
-    vim.keymap.set("n", key, function()
-      if vim.api.nvim_win_is_valid(win) then
-        vim.api.nvim_win_close(win, true)
-      end
-    end, { buffer = buf, nowait = true, desc = "Close hotkeys" })
-  end
+	for _, key in ipairs({ "q", "<Esc>" }) do
+		vim.keymap.set("n", key, function()
+			if vim.api.nvim_win_is_valid(win) then
+				vim.api.nvim_win_close(win, true)
+			end
+		end, { buffer = buf, nowait = true, desc = "Close hotkeys" })
+	end
 end
 
 return {
-  dir = vim.fn.stdpath("config"),
-  name = "hotkeys-cheatsheet",
-  lazy = false,
-  config = function()
-    vim.api.nvim_create_user_command("Hotkeys", open_hotkeys, {})
-    vim.keymap.set("n", "<leader>?", open_hotkeys, { desc = "Show hotkeys cheat sheet" })
-  end,
+	dir = vim.fn.stdpath("config"),
+	name = "hotkeys-cheatsheet",
+	lazy = false,
+	config = function()
+		vim.api.nvim_create_user_command("Hotkeys", open_hotkeys, {})
+		vim.keymap.set("n", "<leader>?", open_hotkeys, { desc = "Show hotkeys cheat sheet" })
+	end,
 }
