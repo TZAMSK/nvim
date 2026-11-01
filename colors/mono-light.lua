@@ -258,3 +258,27 @@ set("NoiceLspProgressSpinner", { fg = "#342d27" })
 set("NoiceLspProgressTitle", { fg = "#51483f" })
 set("NoiceFormatProgressDone", { fg = "#211c18", bg = "#eee8dd", bold = true })
 set("NoiceFormatProgressTodo", { fg = "#8b7f72", bg = "#eee8dd" })
+
+-- barbar.nvim
+set("BufferCurrent", { fg = "#211c18", bg = "#d4c9b9", bold = true })
+set("BufferCurrentIndex", { fg = "#211c18", bg = "#d4c9b9" })
+set("BufferCurrentMod", { fg = "#211c18", bg = "#d4c9b9" })
+set("BufferCurrentSign", { fg = "#d4c9b9", bg = "#eee8dd" })
+set("BufferCurrentIcon", { bg = "#d4c9b9" })
+set("BufferCurrentTarget", { fg = "#211c18", bg = "#d4c9b9", bold = true })
+
+set("BufferInactive", { fg = "#8b7f72", bg = "#eee8dd" })
+set("BufferInactiveIndex", { fg = "#8b7f72", bg = "#eee8dd" })
+set("BufferInactiveMod", { fg = "#8b7f72", bg = "#eee8dd" })
+set("BufferInactiveSign", { fg = "#eee8dd", bg = "#eee8dd" })
+set("BufferInactiveIcon", { bg = "#eee8dd" })
+set("BufferInactiveTarget", { fg = "#8b7f72", bg = "#eee8dd" })
+
+set("BufferVisible", { fg = "#62574d", bg = "#e3dbcf" })
+set("BufferVisibleIndex", { fg = "#62574d", bg = "#e3dbcf" })
+set("BufferVisibleMod", { fg = "#62574d", bg = "#e3dbcf" })
+set("BufferVisibleSign", { fg = "#e3dbcf", bg = "#eee8dd" })
+set("BufferVisibleIcon", { bg = "#e3dbcf" })
+
+set("BufferTabpageFill", { bg = "#eee8dd" })
+set("BufferOffset", { fg = "#8b7f72", bg = "#eee8dd" })
